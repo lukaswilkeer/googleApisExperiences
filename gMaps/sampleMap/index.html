@@ -2,6 +2,8 @@
     <head>
         <title>A simple gMaps test.</title>
         <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+        <script src="./js/modernizr.custom.all.js"></script>
+        <script src="func.js"></script>
         <style>
             html, body, #map-canvas {
                 margin:0;
@@ -13,6 +15,14 @@
         <script>
             var map;
             function initialize(){
+
+                // Pegando a posĩção do usuário.
+                if(Modernizr.geolocation){
+                    navigator.geolocation.getCurrentLocation(show_map);
+                } else {
+                    document.alert("O seu dispositivo nºao suporta geolocalização");
+                }
+
                 var mapOptions = {
                     zoom:8,
                     center: new google.maps.LatLng(-34.397, 150.644),
@@ -22,7 +32,8 @@
             }
             
             google.maps.event.addDomListener(window,'load',initialize);
-        </script>
+
+       </script>
     </head>
     <body>
         <div id="map-canvas"></div>
